@@ -7,12 +7,17 @@ const signUpForm = {
     {
       id: "email_field",
       label: "Email address: ",
-      type: "text"
+      type: "text",
+      validation: "email",
+      placeholder: "chris@example.com",
+      required: true
     },
     {
       id: "password_field",
       label: "Password: ",
-      type: "password"
+      type: "password",
+      validation: "password",
+      required: true
     },
     {
       id: "firstname_field",

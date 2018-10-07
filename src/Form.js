@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputField from "./InputField.js";
 import Button from "./Button.js";
+import Validate from "./FormValidation.js";
 
 const DEFAULT_STATE = {
   formData: {},
@@ -16,8 +17,12 @@ class Form extends Component {
 
   getFormFields = () => {
     let formData = {};
-    this.props.fields.forEach(field => (formData[field.id] = ""));
+    this.props.fields.forEach(field => {
+      formData[field.id] = field;
+      formData[field.id].isValid = !field.required;
+    });
     return formData;
+    
   };
 
   handleInput = event => {
@@ -25,25 +30,40 @@ class Form extends Component {
 
     for (var key in formData) {
       if (key === event.target.id) {
-        formData[key] = event.target.value;
+        formData[key].value = event.target.value;
+        formData[key].isValid = Validate(formData[key]);
       }
     }
     this.setState({ formData: formData });
   };
 
+  allValid = () => {
+    for(let field in this.state.formData){
+      if(!this.state.formData[field].isValid && this.state.formData[field].isValid !== undefined){
+        
+        return false;
+      }
+    }
+    return true;
+  }
+
+
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ submitted: true });
-    console.log("Submitted Data: ", this.state.formData);
+    if(this.allValid()){
+      this.setState({ submitted: true });
+      console.log("Submitted Data: ", this.state.formData);
+    }
   };
 
+ 
   componentDidMount() {
     this.addFormFieldsToState();
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
+  // componentDidUpdate() {
+  //   console.log("state", this.state);
+  // }
 
   render() {
     return (
