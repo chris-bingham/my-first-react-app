@@ -5,6 +5,7 @@ import Validate from "./FormValidation.js";
 
 const DEFAULT_STATE = {
   formData: {},
+  formValid: false,
   submitted: false
 };
 
@@ -22,7 +23,6 @@ class Form extends Component {
       formData[field.id].isValid = !field.required;
     });
     return formData;
-    
   };
 
   handleInput = event => {
@@ -34,29 +34,29 @@ class Form extends Component {
         formData[key].isValid = Validate(formData[key]);
       }
     }
-    this.setState({ formData: formData });
+    this.setState({ formData: formData, formValid: this.allValid() });
   };
 
   allValid = () => {
-    for(let field in this.state.formData){
-      if(!this.state.formData[field].isValid && this.state.formData[field].isValid !== undefined){
-        
+    for (let field in this.state.formData) {
+      if (
+        !this.state.formData[field].isValid &&
+        this.state.formData[field].isValid !== undefined
+      ) {
         return false;
       }
     }
     return true;
-  }
-
+  };
 
   handleSubmit = event => {
     event.preventDefault();
-    if(this.allValid()){
+    if (this.allValid()) {
       this.setState({ submitted: true });
       console.log("Submitted Data: ", this.state.formData);
     }
   };
 
- 
   componentDidMount() {
     this.addFormFieldsToState();
   }
@@ -85,6 +85,7 @@ class Form extends Component {
           id={this.props.name + "_submit"}
           label={"Submit"}
           form={this.props.name}
+          disabled={!this.state.formValid}
         />
       </form>
     );
