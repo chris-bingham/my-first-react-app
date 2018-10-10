@@ -1,28 +1,35 @@
 // import React from 'react';
-
-const validatePassword = password => {
-    return password.length > 6;
-}
+let lastPassword;
 
 const validateEmail = email => {
-    return email.includes("@");
-}
+  return email.includes("@");
+};
 
-const Validate = (field) => {
-    switch (field.validation) {
-        case "email":
-            return validateEmail(field.value);
-        break;
-        case "password":
-            return validatePassword(field.value);
-        break;
+const validatePassword = password => {
+  lastPassword = password;
+  return password.length > 6;
+};
 
-        default:
-            return true;
-        break
+const validateConfirmPassword = password => {
+  return password === lastPassword && validatePassword(password);
+};
 
-    }
-}
+const Validate = field => {
+  switch (field.validation) {
+    case "email":
+      return validateEmail(field.value);
+      break;
+    case "password":
+      return validatePassword(field.value);
+      break;
+    case "confirmPassword":
+      return validateConfirmPassword(field.value);
+      break;
+
+    default:
+      return true;
+      break;
+  }
+};
 
 export default Validate;
-
