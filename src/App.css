@@ -1,5 +1,7 @@
 body {
   background-color: rgb(245, 245, 245);
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
 }
 
 form {
@@ -16,6 +18,19 @@ input[type="password"] {
   border-radius: 3px;
   border: 1px solid gray;
   padding: 10px;
+}
+
+button[type="submit"] {
+  border-radius: 3px;
+  background-color: cornflowerblue;
+  color: white;
+  font-style: bold;
+  padding: 10px;
+  font-size: 1em;
+}
+
+button[type="submit"]:disabled {
+  background-color: darkgrey;
 }
 
 label {
