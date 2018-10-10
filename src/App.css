@@ -23,14 +23,24 @@ input[type="password"] {
 button[type="submit"] {
   border-radius: 3px;
   background-color: cornflowerblue;
+  border: 1px solid cornflowerblue;
   color: white;
-  font-style: bold;
+  font-weight: bold;
   padding: 10px;
   font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: white;
+  color: cornflowerblue;
 }
 
 button[type="submit"]:disabled {
   background-color: darkgrey;
+  cursor: default;
+  border: 1px solid darkgrey;
 }
 
 label {
