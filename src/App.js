@@ -20,6 +20,13 @@ const signUpForm = {
       required: true
     },
     {
+      id: "confirmpassword_field",
+      label: "Confirm Password: ",
+      type: "password",
+      validation: "confirmPassword",
+      required: true
+    },
+    {
       id: "firstname_field",
       label: "Full name: ",
       type: "text"

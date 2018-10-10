@@ -1,10 +1,24 @@
 import React from "react";
 
-const InputField = ({ id, label, type, handleInput, placeholder, required }) => {
+const InputField = ({
+  id,
+  label,
+  type,
+  handleInput,
+  placeholder,
+  required,
+  isValid
+}) => {
   return (
-    <div>
+    <div className="form-group">
       <label htmlFor={id}>{label}</label>
-      <input type={type} id={id} onChange={handleInput} placeholder={placeholder}/>
+      <input
+        type={type}
+        id={id}
+        onChange={handleInput}
+        placeholder={placeholder}
+        className={isValid ? "valid-field" : "invalid-field"}
+      />
     </div>
   );
 };

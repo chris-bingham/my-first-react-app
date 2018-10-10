@@ -78,6 +78,7 @@ class Form extends Component {
             {...field}
             handleInput={this.handleInput}
             form={this.name}
+            // isValid={this.state.formData[field.id].isValid}
           />
         ))}
         <Button
