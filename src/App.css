@@ -19,7 +19,11 @@ input[type="password"] {
 }
 
 label {
-  width: 200px;
+  margin-right: 10px;
+}
+
+label .required-star {
+  color: red;
 }
 
 .invalid-field {

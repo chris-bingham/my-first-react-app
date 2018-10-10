@@ -6,7 +6,7 @@ const signUpForm = {
   fields: [
     {
       id: "email_field",
-      label: "Email address: ",
+      label: "Email address:",
       type: "text",
       validation: "email",
       placeholder: "chris@example.com",
@@ -14,26 +14,26 @@ const signUpForm = {
     },
     {
       id: "password_field",
-      label: "Password: ",
+      label: "Password:",
       type: "password",
       validation: "password",
       required: true
     },
     {
       id: "confirmpassword_field",
-      label: "Confirm Password: ",
+      label: "Confirm Password:",
       type: "password",
       validation: "confirmPassword",
       required: true
     },
     {
       id: "firstname_field",
-      label: "Full name: ",
+      label: "Full name:",
       type: "text"
     },
     {
       id: "lastname_field",
-      label: "Last name: ",
+      label: "Last name:",
       type: "text"
     }
   ]
