@@ -41,6 +41,7 @@ button[type="submit"]:disabled {
   background-color: darkgrey;
   cursor: default;
   border: 1px solid darkgrey;
+  color: white;
 }
 
 label {
@@ -51,10 +52,10 @@ label .required-star {
   color: red;
 }
 
-.invalid-field {
+.invalid-field.activated {
   border: 1px solid red;
 }
 
-.valid-field {
+.valid-field.activated {
   border: 1px solid green;
 }

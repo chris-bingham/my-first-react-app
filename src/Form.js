@@ -12,18 +12,31 @@ const DEFAULT_STATE = {
 class Form extends Component {
   state = DEFAULT_STATE;
 
-  addFormFieldsToState = () => {
-    this.setState({ formData: this.getFormFields() });
-  };
+  static getDerivedStateFromProps(props, state) {
+    if (Object.keys(state.formData).length === 0) {
+      let formData = {};
+      props.fields.forEach(field => {
+        formData[field.id] = field;
+        formData[field.id].isValid = !field.required;
+        formData[field.id].activated = false;
+      });
+      state.formData = formData;
+    }
+    return state;
+  }
 
-  getFormFields = () => {
-    let formData = {};
-    this.props.fields.forEach(field => {
-      formData[field.id] = field;
-      formData[field.id].isValid = !field.required;
-    });
-    return formData;
-  };
+  // addFormFieldsToState = () => {
+  //   this.setState({ formData: this.getFormFields(this.props.fields) });
+  // };
+
+  // getFormFields = fields => {
+  //   let formData = {};
+  //   fields.forEach(field => {
+  //     formData[field.id] = field;
+  //     formData[field.id].isValid = !field.required;
+  //   });
+  //   return formData;
+  // };
 
   handleInput = event => {
     let formData = this.state.formData;
@@ -32,6 +45,7 @@ class Form extends Component {
       if (key === event.target.id) {
         formData[key].value = event.target.value;
         formData[key].isValid = Validate(formData[key]);
+        formData[key].activated = true;
       }
     }
     this.setState({ formData: formData, formValid: this.allValid() });
@@ -58,7 +72,7 @@ class Form extends Component {
   };
 
   componentDidMount() {
-    this.addFormFieldsToState();
+    console.log("state", this.state);
   }
 
   // componentDidUpdate() {
@@ -78,7 +92,8 @@ class Form extends Component {
             {...field}
             handleInput={this.handleInput}
             form={this.name}
-            // isValid={this.state.formData[field.id].isValid}
+            isValid={this.state.formData[field.id].isValid}
+            activated={this.state.formData[field.id].activated}
           />
         ))}
         <Button

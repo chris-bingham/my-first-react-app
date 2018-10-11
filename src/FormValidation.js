@@ -18,17 +18,12 @@ const Validate = field => {
   switch (field.validation) {
     case "email":
       return validateEmail(field.value);
-      break;
     case "password":
       return validatePassword(field.value);
-      break;
     case "confirmPassword":
       return validateConfirmPassword(field.value);
-      break;
-
     default:
       return true;
-      break;
   }
 };
 

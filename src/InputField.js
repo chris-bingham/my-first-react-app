@@ -7,8 +7,12 @@ const InputField = ({
   handleInput,
   placeholder,
   required,
-  isValid
+  isValid,
+  activated
 }) => {
+  const validityClass = isValid ? "valid-field" : "invalid-field",
+    activatedClass = activated ? "activated" : "",
+    classes = validityClass + " " + activatedClass;
   return (
     <div className="form-group">
       <label htmlFor={id}>
@@ -20,7 +24,7 @@ const InputField = ({
         id={id}
         onChange={handleInput}
         placeholder={placeholder}
-        className={isValid ? "valid-field" : "invalid-field"}
+        className={classes}
       />
     </div>
   );
