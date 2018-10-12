@@ -19,6 +19,7 @@ class Form extends Component {
         formData[field.id] = field;
         formData[field.id].isValid = !field.required;
         formData[field.id].activated = false;
+        formData[field.id].message = field.message || "";
       });
       state.formData = formData;
     }
@@ -44,7 +45,12 @@ class Form extends Component {
     for (var key in formData) {
       if (key === event.target.id) {
         formData[key].value = event.target.value;
-        formData[key].isValid = Validate(formData[key]);
+        let validation = Validate(formData[key]);
+        console.log(validation);
+        formData[key].isValid = validation.result || false;
+        if (validation.message) {
+          formData[key].message = validation.message;
+        }
         formData[key].activated = true;
       }
     }
@@ -86,6 +92,7 @@ class Form extends Component {
         id={this.props.name}
         onSubmit={this.handleSubmit}
       >
+        <h2>{this.props.title}</h2>
         {this.props.fields.map(field => (
           <InputField
             key={field.id}
@@ -94,6 +101,7 @@ class Form extends Component {
             form={this.name}
             isValid={this.state.formData[field.id].isValid}
             activated={this.state.formData[field.id].activated}
+            message={this.state.formData[field.id].message}
           />
         ))}
         <Button

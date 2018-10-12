@@ -8,13 +8,14 @@ const InputField = ({
   placeholder,
   required,
   isValid,
-  activated
+  activated,
+  message
 }) => {
   const validityClass = isValid ? "valid-field" : "invalid-field",
     activatedClass = activated ? "activated" : "",
-    classes = validityClass + " " + activatedClass;
+    classes = "form-group " + validityClass + " " + activatedClass;
   return (
-    <div className="form-group">
+    <div className={classes}>
       <label htmlFor={id}>
         {label}
         <span className="required-star">{required ? "*" : ""}</span>
@@ -24,8 +25,8 @@ const InputField = ({
         id={id}
         onChange={handleInput}
         placeholder={placeholder}
-        className={classes}
       />
+      <p className="message">{message}</p>
     </div>
   );
 };

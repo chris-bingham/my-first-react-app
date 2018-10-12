@@ -3,6 +3,7 @@ import Form from "./Form.js";
 import "./App.css";
 
 const signUpForm = {
+  title: "Sign up",
   fields: [
     {
       id: "email_field",
@@ -17,7 +18,9 @@ const signUpForm = {
       label: "Password:",
       type: "password",
       validation: "password",
-      required: true
+      required: true,
+      message:
+        "Password must be atleast 8 chars and contain a letter and a number"
     },
     {
       id: "confirmpassword_field",
@@ -43,7 +46,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Form name={"signUpForm"} fields={signUpForm.fields} />
+        <Form
+          name={"signUpForm"}
+          title={signUpForm.title}
+          fields={signUpForm.fields}
+        />
       </div>
     );
   }
