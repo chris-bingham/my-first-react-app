@@ -9,6 +9,7 @@ form {
   text-align: center;
   width: 80%;
   max-width: 500px;
+  margin: auto;
 }
 
 form > * {
@@ -59,10 +60,24 @@ label .required-star {
   color: red;
 }
 
-.invalid-field.activated {
+.invalid-field.activated input {
   border: 1px solid red;
 }
 
-.valid-field.activated {
+.valid-field.activated input {
   border: 1px solid green;
+}
+
+.valid-field.activated .message {
+  color: green;
+}
+
+.invalid-field.activated .message {
+  color: red;
+}
+
+.message {
+  color: #949494;
+  font-size: 0.8em;
+  font-style: italic;
 }
