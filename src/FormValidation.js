@@ -2,12 +2,20 @@
 let lastPassword;
 
 const numbersRegex = /\d/,
-  lettersRegex = /[A-Za-z]+/;
-// onlyLettersAndNumbersRegex = /[^A-Za-z0-9]+/;
+  lettersRegex = /[A-Za-z]+/,
+  lettersAndNumbersRegex = /[A-Za-z0-9]+/;
 
 const validateEmail = email => {
+  if (email.includes("@") && lettersAndNumbersRegex.test(email)) {
+    return {
+      result: true,
+      message: " "
+    };
+  }
+
   return {
-    result: email.includes("@")
+    result: false,
+    message: "Email address not valid"
   };
 };
 
@@ -19,7 +27,9 @@ const validatePassword = password => {
 
   if (hasLetter && hasNumber && isCorrectLength) {
     return {
-      result: true
+      result: true,
+      message:
+        "Password must be atleast 8 chars and contain a letter and a number"
     };
   } else if (isCorrectLength) {
     return {
@@ -56,7 +66,7 @@ const Validate = field => {
     case "confirmPassword":
       return validateConfirmPassword(field.value);
     default:
-      return true;
+      return { result: true };
   }
 };
 

@@ -4,12 +4,13 @@ const InputField = ({
   id,
   label,
   type,
-  handleInput,
+  onChange,
   placeholder,
   required,
   isValid,
   activated,
-  message
+  message,
+  value
 }) => {
   const validityClass = isValid ? "valid-field" : "invalid-field",
     activatedClass = activated ? "activated" : "",
@@ -23,8 +24,9 @@ const InputField = ({
       <input
         type={type}
         id={id}
-        onChange={handleInput}
+        onChange={onChange}
         placeholder={placeholder}
+        value={value}
       />
       <p className="message">{message}</p>
     </div>

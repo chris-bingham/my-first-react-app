@@ -31,13 +31,19 @@ const signUpForm = {
     },
     {
       id: "firstname_field",
-      label: "Full name:",
+      label: "First name:",
       type: "text"
     },
     {
       id: "lastname_field",
       label: "Last name:",
       type: "text"
+    },
+    {
+      id: "postcode_field",
+      label: "Post code:",
+      type: "text",
+      defaultValue: "SN13 8PN"
     }
   ]
 };

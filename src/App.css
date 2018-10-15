@@ -10,10 +10,16 @@ form {
   width: 80%;
   max-width: 500px;
   margin: auto;
+  display: grid;
 }
 
-form > * {
+/* form > * {
   margin: 20px 0;
+} */
+
+.form-group {
+  display: grid;
+  grid-template-columns: 35% 65%;
 }
 
 input[type="text"],
@@ -21,7 +27,9 @@ input[type="password"] {
   border-radius: 3px;
   border: 1px solid gray;
   padding: 10px;
-  width: 45%;
+  outline: none;
+  transition: color 0.5;
+  grid-column-start: 2;
 }
 
 button[type="submit"] {
@@ -34,7 +42,8 @@ button[type="submit"] {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.4s;
-  transition: color 0.5;
+  width: 90px;
+  margin: auto;
 }
 
 button[type="submit"]:hover {
@@ -50,10 +59,9 @@ button[type="submit"]:disabled {
 }
 
 label {
-  margin-right: 10px;
-  width: 35%;
-  display: inline-block;
   text-align: right;
+  grid-column-start: 1;
+  padding: 8px;
 }
 
 label .required-star {
@@ -80,4 +88,23 @@ label .required-star {
   color: #949494;
   font-size: 0.8em;
   font-style: italic;
+  grid-column-start: 2;
+}
+
+@media screen and (max-width: 640px) {
+  .form-group {
+    grid-template-columns: 100%;
+  }
+  label {
+    padding: 0;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  input[type="text"],
+  input[type="password"] {
+    grid-column: 1;
+  }
+  .message {
+    grid-column: 1;
+  }
 }

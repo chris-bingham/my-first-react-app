@@ -5,6 +5,7 @@ import Validate from "./FormValidation.js";
 
 const DEFAULT_STATE = {
   formData: {},
+  submissionValues: {},
   formValid: false,
   submitted: false
 };
@@ -20,6 +21,7 @@ class Form extends Component {
         formData[field.id].isValid = !field.required;
         formData[field.id].activated = false;
         formData[field.id].message = field.message || "";
+        formData[field.id].value = field.defaultValue || "";
       });
       state.formData = formData;
     }
@@ -39,47 +41,71 @@ class Form extends Component {
   //   return formData;
   // };
 
-  handleInput = event => {
-    let formData = this.state.formData;
-
-    for (var key in formData) {
-      if (key === event.target.id) {
-        formData[key].value = event.target.value;
-        let validation = Validate(formData[key]);
-        console.log(validation);
-        formData[key].isValid = validation.result || false;
-        if (validation.message) {
-          formData[key].message = validation.message;
+  updateFormData = event => {
+    const { id, value } = event.target;
+    this.setState(
+      {
+        formData: {
+          ...this.state.formData,
+          [id]: {
+            ...this.state.formData[id],
+            value,
+            activated: true
+          }
         }
-        formData[key].activated = true;
+      },
+      () => {
+        this.updateValidation(id);
       }
-    }
-    this.setState({ formData: formData, formValid: this.allValid() });
+    );
+  };
+
+  updateValidation = id => {
+    const validation = Validate(this.state.formData[id]);
+
+    this.setState(
+      {
+        formData: {
+          ...this.state.formData,
+          [id]: {
+            ...this.state.formData[id],
+            isValid: validation.result || false,
+            message: validation.message || ""
+          }
+        }
+      },
+      () => {
+        this.allValid();
+      }
+    );
   };
 
   allValid = () => {
+    const fields = Object.values(this.state.formData);
+    this.setState({ formValid: fields.every(data => data.isValid) });
+  };
+
+  getSubmissionValues = () => {
+    let submissionValues = {};
     for (let field in this.state.formData) {
-      if (
-        !this.state.formData[field].isValid &&
-        this.state.formData[field].isValid !== undefined
-      ) {
-        return false;
-      }
+      submissionValues[field] = this.state.formData[field].value;
     }
-    return true;
+    return submissionValues;
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.allValid()) {
+    if (this.state.formValid) {
       this.setState({ submitted: true });
-      console.log("Submitted Data: ", this.state.formData);
+      this.setState({ submissionValues: this.getSubmissionValues() }, () => {
+        console.log("Submitted Data: ", this.state.submissionValues);
+      });
     }
   };
 
-  componentDidMount() {
-    console.log("state", this.state);
-  }
+  // componentDidMount() {
+  //   console.log("state", this.state);
+  // }
 
   // componentDidUpdate() {
   //   console.log("state", this.state);
@@ -95,13 +121,14 @@ class Form extends Component {
         <h2>{this.props.title}</h2>
         {this.props.fields.map(field => (
           <InputField
-            key={field.id}
+            key={"form_field_" + field.id}
             {...field}
-            handleInput={this.handleInput}
+            onChange={this.updateFormData}
             form={this.name}
             isValid={this.state.formData[field.id].isValid}
             activated={this.state.formData[field.id].activated}
             message={this.state.formData[field.id].message}
+            value={this.state.formData[field.id].value}
           />
         ))}
         <Button
