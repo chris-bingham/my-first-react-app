@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Form from "./Form.js";
+import Header from "./Header.js";
 import "./App.css";
 
 const signUpForm = {
@@ -48,10 +49,29 @@ const signUpForm = {
   ]
 };
 
+const mainNav = [
+  {
+    id: "home_link",
+    label: "Home",
+    href: "#"
+  },
+  {
+    id: "blog_link",
+    label: "Blog",
+    href: "#"
+  },
+  {
+    id: "signup_link",
+    label: "Sign Up",
+    href: "#"
+  }
+];
+
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header menuItems={mainNav} />
         <Form
           name={"signUpForm"}
           title={signUpForm.title}
