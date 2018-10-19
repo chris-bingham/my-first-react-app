@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 import Form from "./Form.js";
 import Header from "./Header.js";
 import "./App.css";
 
 const signUpForm = {
+  name: "signUpForm",
   title: "Sign up",
   fields: [
     {
@@ -53,17 +55,17 @@ const mainNav = [
   {
     id: "home_link",
     label: "Home",
-    href: "#"
+    href: "/"
   },
   {
     id: "blog_link",
     label: "Blog",
-    href: "#"
+    href: "/blog"
   },
   {
     id: "signup_link",
     label: "Sign Up",
-    href: "#"
+    href: "/signup"
   }
 ];
 
@@ -72,11 +74,12 @@ class App extends Component {
     return (
       <div className="App">
         <Header menuItems={mainNav} />
-        <Form
-          name={"signUpForm"}
-          title={signUpForm.title}
-          fields={signUpForm.fields}
-        />
+        <Switch>
+          <Route exact path="/" render={() => <h2>HOME</h2>} />
+          <Route path="/signup" render={() => <Form {...signUpForm} />} />
+
+          <Route path="/blog" render={() => <h2>BLOG</h2>} />
+        </Switch>
       </div>
     );
   }
