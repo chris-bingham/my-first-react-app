@@ -78,7 +78,8 @@ class App extends Component {
           <Route exact path="/" render={() => <h2>HOME</h2>} />
           <Route path="/signup" render={() => <Form {...signUpForm} />} />
 
-          <Route path="/blog" render={() => <h2>BLOG</h2>} />
+          <Route exact path="/blog" render={() => <h2>BLOG</h2>} />
+          <Route path="/blog/:post" render={(props) => <h2>Blog post: {props.match.params.post}</h2>} />
         </Switch>
       </div>
     );
